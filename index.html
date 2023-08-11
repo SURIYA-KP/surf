@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bing search</title>
+    <style>
+        div{
+            display: flexbox;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        function surf() {
+            var search = document.getElementById("search").value
+            var times = document.getElementById("number").value
+            const space = "+";
+            function openAndCloseWindow(i) {
+                var newWindow = window.open("https://www.bing.com/search?q=" + search + space.repeat(i));
+                setTimeout(function () {
+                    newWindow.close();
+                }, 3000); 
+            }
+
+            for (let i = 1; i <= times; i++) {
+                setTimeout(function () {
+                    openAndCloseWindow(i);
+                }, i * 1000);
+            }
+        }
+    </script>
+    <div>
+    <input type="text" id="search" placeholder="search">
+    <input type="number" id="number" placeholder="number of results">
+    <button onclick="surf()"> start search</button>
+    </div>
+</body>
+
+</html>
+
+<!-- function openAndCloseWindow(i) {
+    var newWindow = window.open("https://www.bing.com/search?q=" + search + space.repeat(i));
+    setTimeout(function() {
+        newWindow.close();
+    }, 2000); // Close the window after 2000 milliseconds (2 seconds)
+}
+
+for (let i = 1; i <= times; i++) {
+    setTimeout(function() {
+        openAndCloseWindow(i);
+    }, i * 100); // Delay opening the window by i * 100 milliseconds
+} -->
+
+<!-- function surf() {
+    var search = document.getElementById("search").value
+    var times = document.getElementById("number").value
+    const space = "+";
+    function openWindowWithDelay(i) {
+        setTimeout(function () {
+            window.open("https://www.bing.com/search?q=" + search + space.repeat(i));
+        }, i * 600); 
+    }
+
+    for (let i = 1; i <= times; i++) {
+        openWindowWithDelay(i);
+    }
+} -->
