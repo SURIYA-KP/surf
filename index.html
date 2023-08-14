@@ -18,24 +18,29 @@
         function surf() {
             var search = document.getElementById("search").value
             var times = document.getElementById("number").value
+            var Timeout = document.getElementById("Timeout").value
+            var closingLatency = document.getElementById("closingLatency").value
+
             const space = "+";
             function openAndCloseWindow(i) {
                 var newWindow = window.open("https://www.bing.com/search?q=" + search + space.repeat(i));
                 setTimeout(function () {
                     newWindow.close();
-                }, 3000); 
+                }, closingLatency); 
             }
 
             for (let i = 1; i <= times; i++) {
                 setTimeout(function () {
                     openAndCloseWindow(i);
-                }, i * 1000);
+                }, i * Timeout);
             }
         }
     </script>
     <div>
     <input type="text" id="search"  value="search">
     <input type="number" id="number"  value="34">
+    <input type="range" id="Timeout" name="Timeout" min="0" max="1000" step="25" value="75">
+    <input type="range" id=closingLatency name="closingLatency" min="500" max="5000" step="100" value="1000">
     <button onclick="surf()"> start search</button>
     </div>
 </body>
