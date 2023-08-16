@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bing search</title>
     <style>
-        div{
+        div {
             display: flexbox;
         }
     </style>
@@ -26,7 +26,7 @@
                 var newWindow = window.open("https://www.bing.com/search?q=" + search + space.repeat(i));
                 setTimeout(function () {
                     newWindow.close();
-                }, closingLatency); 
+                }, closingLatency);
             }
 
             for (let i = 1; i <= times; i++) {
@@ -35,13 +35,57 @@
                 }, i * Timeout);
             }
         }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            if (typeof Storage !== "undefined") {
+                if (!localStorage.getItem("Autorun")) {
+                    localStorage.setItem("Autorun", "false");
+                    localStorage.setItem("search", document.getElementById("search").value);
+                    localStorage.setItem("number", document.getElementById("number").value.toString());
+                    localStorage.setItem("Timeout", document.getElementById("Timeout").value.toString());
+                    localStorage.setItem("closingLatency", document.getElementById("closingLatency").value.toString());
+                } else {
+                    document.getElementById("search").value = localStorage.getItem("search");
+                    document.getElementById("number").value = parseInt(localStorage.getItem("number"));
+                    document.getElementById("Timeout").value = parseInt(localStorage.getItem("Timeou"));
+                    document.getElementById("closingLatency").value = parseInt(localStorage.getItem("closingLatency"));
+                    if (localStorage.getItem("Autorun") === "true") {
+                        document.getElementById("checkbox").checked = true;
+                        surf();
+                    }
+                }
+            } else {
+                document.getElementById("checkboxLabel").style.display = "none";
+                document.getElementById("save").style.display = "none";
+                document.getElementById("checkboxLabel").disabled = true;
+                document.getElementById("save").disabled = true;
+                alert("Autorun feature is not available in this browser");
+            }
+        })
+
+        function switchCheck() {
+            if (localStorage.getItem("Autorun") === "true") {
+                localStorage.setItem("AutoRun", "false");
+            } else {
+                localStorage.setItem("AutoRun", "false");
+            }
+        }
+
+        function save() {
+            localStorage.setItem("search", document.getElementById("search").value);
+            localStorage.setItem("number", document.getElementById("number").value.toString());
+            localStorage.setItem("Timeout", document.getElementById("Timeout").value.toString());
+            localStorage.setItem("closingLatency", document.getElementById("closingLatency").value.toString());
+        }
     </script>
     <div>
-    <input type="text" id="search"  value="search">
-    <input type="number" id="number"  value="34">
-    <input type="range" id="Timeout" name="Timeout" min="0" max="1000" step="25" value="75">
-    <input type="range" id=closingLatency name="closingLatency" min="500" max="5000" step="100" value="1000">
-    <button onclick="surf()"> start search</button>
+        <input type="text" id="search" value="search">
+        <input type="number" id="number" value="34">
+        <input type="range" id="Timeout" name="Timeout" min="0" max="1000" step="25" value="200">
+        <input type="range" id=closingLatency name="closingLatency" min="500" max="5000" step="100" value="1500">
+        <button onclick="surf()"> start search</button>
+        <p><input type="checkbox" name="AutoRun" id="AutoRun" onclick="switchCheck()"> AutoRun </p>
+        <button id="save" onclick="save()"> start search</button>
     </div>
 </body>
 
